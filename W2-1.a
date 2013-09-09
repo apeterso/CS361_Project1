@@ -1,6 +1,8 @@
 ; W2-0.a
 ; author: Dale Skrien
+; modified by Anders Peterson and Hieu Phan
 ; date: September 5, 2013
+; modified: September 8, 2013
 
 ; This program reads in two arbitrary (positive or negative)
 ; integers m and n and outputs the product of m and n, 

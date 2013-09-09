@@ -1,5 +1,38 @@
-<<<<<<< HEAD
-; aifgawpignpwit
->>>>>>> 989c182f64e292b2999d29a0eb65266b8d5b6b25
+; W2-2.a
+; authors: Anders Peterson and Hieu Phan
+; date: September 9, 2013
 
-hhfhdh
+; This program reads in integers until the integer -999 is input then outputs
+; the average of the integers (excluding the final -999) and quits.
+
+; Roles of the registers
+; A0 holds the sum of the user inputs
+; A1 holds a counter
+; A2 holds the most recent user input
+; A3 holds a copy of A2 to be manipulated when checking for termination condition
+; A4 holds 999
+; A5 holds 1
+
+	loadc A0 0	; loads 0 into A0
+	loadc A1 0	; loads 0 into A1
+	load A4 check	; loads 999 into A4
+	load A5 one	; loads 1 into A5
+
+Start:	load A2 IO	; stores user input to A2
+	move A3 A2	; copy A2 to another temporary register A3
+	add A3 A4	; add 999 to the temporary register
+	jmpz A3 Avg	; jump to end if user input is -999
+	
+	add A0 A2	; add the user input to the sum in A0
+	add A1 A5	; increment the counter
+	jump Start	; go back to start
+
+Avg:	jmpz A1 End	; check if the counter is 0 to prevent dividing by 0
+	divide A0 A1	; find the mean by dividing the sum by the counter
+	store A0 IO	; output the average
+
+End:	exit		; stop
+
+; variables
+one:	.data 2 1	; constant 1
+check:	.data 2 999	; constant 999
