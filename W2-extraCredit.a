@@ -1,0 +1,37 @@
+; W2-extraCredit.a
+; authors: Anders Peterson and Hieu Phan
+; date: September 9, 2013
+
+; This program reads in integers and pushes them onto the stack until the integer
+: -999 is input then outputs the integers in reverse order using pop
+
+; A0 holds a value after being popped off the stack
+; A1 holds a counter
+; A2 holds the most recent user input
+; A3 holds a copy of A2 to be manipulated when checking for termination condition
+; A4 holds 999
+; A5 holds 1
+
+	loadc A1 0	; loads 0 into A1
+	loadc A5 1	; loads 1 into A5
+	load A4 check	; loads 999 into A4
+
+Start:	load A2 IO	; stores user input to A2
+	move A3 A2	; copy A2 to another temporary register A3
+	add A3 A4	; add 999 to the temporary register
+	jmpz A3 Empty	; jump to end if user input is -999
+	
+	push A2		; push the user input to stack
+	add A1 A5	; increment the counter
+	jump Start	; go back to start
+
+Empty:	jmpz A1 End	; check if the counter is 0
+	pop A0		; pop into A0
+	store A0 IO	; print the most recently popped value
+	subtract A1 A5	; decrement the counter
+	jump Empty	; jump to Empty to continue emptying the stack
+
+End:	exit		; stop
+
+; variables
+check:	.data 2 999	; constant 999
